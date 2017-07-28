@@ -1,0 +1,13 @@
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = MuslLibC
+  PACKAGE_GUID                   = 43af5844-084f-4bf1-9a94-7738a543a4e8
+  PACKAGE_VERSION                = 0.01
+
+[Includes]
+  include
+
+[Guids]
+
+[Protocols]
+
