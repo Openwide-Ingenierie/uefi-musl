@@ -148,15 +148,16 @@ Syscall_Open(UINT64 Filename, UINT64 Flags, UINT64 Mode)
   EFI_STATUS St = OpenFile(File, Buffer, EFI_Flags, 0);
   FreePool(Buffer);
   if(St == EFI_NOT_FOUND){
+    Print(L"Cannot open, not found\n");
     errno = ENOENT;
     return -1;
   } else if(EFI_ERROR(St)){
     Print(L"Cannot OpenFile (UEFI protocol): error %d\n", St);
     goto error;
   }
-  if(Flags & O_APPEND){
+  /*  if(Flags & O_APPEND){
     (*File)->SetPosition(*File, POS_END);
-  }
+    }*/
   errno = 0;
   return Fd;
  error:

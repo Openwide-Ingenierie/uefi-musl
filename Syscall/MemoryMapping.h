@@ -9,6 +9,7 @@
 #include <Library/BaseMemoryLib.h>
 #include <Library/MemoryAllocationLib.h>
 #include <File.h>
+#include <MmapList.h>
 
 #include <sys/mman.h>
 
@@ -22,6 +23,8 @@ UINT64 Syscall_Mmap(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
 UINT64 Syscall_Munmap(UINT64, UINT64);
   
 /** Internal Functions **/
+UINT64 FileSize(EFI_FILE_PROTOCOL*);
+
 VOID SetAttribute(EFI_PHYSICAL_ADDRESS, UINT64);
 
 VOID PrintMap(VOID);

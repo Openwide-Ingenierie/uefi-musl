@@ -55,11 +55,10 @@ Syscall_Mmap(UINT64 Addr, UINT64 Len,
      Addr is ignored
      PROT is ignored as there is no memory protection on UEFI
      (memory by default is READ | WRITE | EXEC)
-     FLAGS supported are MAP_SHARED (associated with a file) and MAP_ANONYMOUS (MAP_SHARED, as there isn't another process running)
-   */
+     FLAGS supported are MAP_SHARED (associated with a file) and MAP_ANONYMOUS (MAP_SHARED, as there i no other process running) 
   
   Print(L"mmap(Addr=%p, Len=%lx, PROT=%lx, Flags=%lx, Fd=%lx, Off=%lx)\n",
-	Addr, Len, Prot, Flags, Fd, Off);
+  Addr, Len, Prot, Flags, Fd, Off);*/
   
   if(Len == 0){
     errno = EINVAL;
@@ -82,7 +81,7 @@ Syscall_Mmap(UINT64 Addr, UINT64 Len,
   gBS->SetMem((VOID*) MmAddr, NumPages*PAGESIZE, 0);
 
   // Check the flags
-  if(Flags == MAP_ANONYMOUS){
+  if(Flags & MAP_ANONYMOUS){
     return MmAddr;
   }
 
@@ -114,15 +113,47 @@ Syscall_Mmap(UINT64 Addr, UINT64 Len,
     gBS->FreePages(MmAddr, NumPages);
     return -1;
   }
+
+  // Add the page and the file descriptor to the global list
+  if(!ListAdd(MmAddr, Fd, Off, OpenedFiles[Fd].File)){
+    Print(L"Couldn't add the address to MmapList\n");
+    gBS->FreePages(MmAddr, NumPages);
+    errno = EIO;
+    return -1;
+  }
+  
   return MmAddr;
 }
 
 UINT64
 Syscall_Munmap(UINT64 Addr, UINT64 Size)
 {
-  // FIXME: No FD is supported yet
   UINT64 NumPages = LenToPages(Size);
   EFI_PHYSICAL_ADDRESS PAddr = (EFI_PHYSICAL_ADDRESS) Addr;
+  // Check whether the address is associated to a file
+  LIST_NODE* Desc = ListGet(PAddr);
+  if(Desc != NULL){
+    UINT64 Fd = Desc->Fd;
+    EFI_FILE_PROTOCOL* Current = OpenedFiles[Fd].File;
+    if(Current == Desc->File){
+      /* The file described by the current file descriptor
+       * is still the same as the one given to mmap 
+       * so we can write back */
+      UINT64 Fsize = FileSize(Current);
+      UINT64 NumPages = LenToPages(Size);
+      UINT64 Offset = Desc->Offset;
+      UINT64 ToWrite = MIN(Fsize-Offset, NumPages*4096);
+      UINT64 Write = Syscall_Pwrite64(Fd, PAddr, ToWrite, Offset);
+      if(Write < 0){
+	Print(L"Couldn't write back data to the file\n");
+	return -1;
+      }
+      // Remove the association from the list
+      if(!ListDelete(PAddr)){
+	Print(L"Error deleting from MmapList\n");
+      }
+    }
+  }
   EFI_STATUS St = gBS->FreePages(PAddr, NumPages);
   if(EFI_ERROR(St)){
     errno = EINVAL;
@@ -132,6 +163,17 @@ Syscall_Munmap(UINT64 Addr, UINT64 Size)
 }
 
 /** Function to get the memory mapping **/
+UINT64
+FileSize(EFI_FILE_PROTOCOL* File)
+{
+  struct stat stats;
+  UINT64 Res = Stat(File, &stats);
+  if(Res < 0){
+    return -1;
+  }  
+  return stats.st_size;
+}
+
 VOID
 GetMap(EFI_MEMORY_DESCRIPTOR** MemoryMap, UINTN* MemoryMapSize, UINTN* DescriptorSize)
 {

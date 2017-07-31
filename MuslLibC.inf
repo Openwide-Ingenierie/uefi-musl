@@ -32,6 +32,7 @@
   Syscall/Ioctl.c
   Syscall/Time.c
   Syscall/MemoryMapping.c
+  Syscall/MmapList.c
   
 ## Exit source code
   src/exit/abort.c
@@ -423,7 +424,6 @@
   src/env/__stack_chk_fail.c
   src/env/unsetenv.c
   src/errno/__errno_location.c
-  src/errno/__errno_location.c~
   src/errno/strerror.c
   src/errno/__strerror.h
   src/fenv/fegetexceptflag.c

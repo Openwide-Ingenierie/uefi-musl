@@ -17,7 +17,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <time.h>
-
+#include <MmapList.h>
 #include <MemoryMapping.h>
 
 #define BUFSIZE 128
@@ -31,23 +31,9 @@ EFI_STATUS EFIAPI
 UefiMain(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE *SystemTable)
 {
   //TestStdlib();
-  //TestStdio();
+  TestStdio();
   //TestUnistd();
-  int fd = open("newfile.txt", O_RDWR);
-  if(fd < 0){
-    Print(L"Couldn't open new.txt\n");
-    goto end;
-  }
-  printf("Hello\r\n");
-  char* file = mmap(NULL, 50, 0, MAP_SHARED, fd, 10);
-  if(file == MAP_FAILED){
-    printf("Error mapping the file\r\n");
-  }
-
-  printf("Content: %s\r\n", file);
-  close(fd);
   
- end:
   Print(L"\rPress any key to exit...");
   EFI_INPUT_KEY Key;
   UINTN EventIndex;
@@ -223,25 +209,32 @@ TestStdio(VOID)
   printf("Printed with printf\r\n");
   puts("Printed with puts\r");
 
+  // Test fopen
+  printf("Test FILE* structure\r\n");
+  FILE* file = fopen("file.txt", "w+");
+  if(file == NULL){
+    Print(L"Couldn't open file\n");
+    return;
+  }
+  Print(L"File opened !\n");
+  /*printf("Content of the file:\r\n");
+  fgets(Buf, BUFSIZE-1, file);
+  printf("%s\r\n", Buf);*/
+  int res = fprintf(file, "This is a string written with function fprintf\n");
+  if(res < 0) Print(L"Error with fprintf\n");
+
+  res = fflush(file);
+  if(res < 0) Print(L"Error with fflush\n");
+
+  rewind(file);
+  fgets(Buf, BUFSIZE-1, file);
+  printf("Content:\r\n%s\r\n", Buf);
+  fclose(file);
+
   // Test scanf
   /*printf("Type anything:\r\n");
   scanf("%s", Buf);
   printf("You typed \"%s\"\r\n", Buf);*/
-
-  // Test fopen
-  printf("Test FILE* structure\r\n");
-  FILE* file = fopen("file.txt", "r");
-  if(file == NULL){
-    perror("Couldn't open file");
-  }
-
-  printf("Content of the file:\r\n");
-  fgets(Buf, BUFSIZE-1, file);
-  printf("%s", Buf);
-  fclose(file);
-  // getline
-  // fgets
-  
 }
 
 
