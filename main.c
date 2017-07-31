@@ -39,6 +39,7 @@ UefiMain(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE *SystemTable)
   UINTN EventIndex;
   gBS->WaitForEvent(1, &gST->ConIn->WaitForKey, &EventIndex);
   gST->ConIn->ReadKeyStroke (gST->ConIn, &Key);
+  LibExit();
   return EFI_SUCCESS;
 }
 

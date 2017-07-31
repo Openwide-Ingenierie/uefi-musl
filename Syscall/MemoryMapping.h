@@ -21,7 +21,9 @@ UINT64 Syscall_Brk(UINT64);
 UINT64 Syscall_Mmap(UINT64, UINT64, UINT64, UINT64, UINT64, UINT64);
 
 UINT64 Syscall_Munmap(UINT64, UINT64);
-  
+
+VOID LibExit(VOID);
+
 /** Internal Functions **/
 UINT64 FileSize(EFI_FILE_PROTOCOL*);
 

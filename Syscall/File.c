@@ -196,6 +196,16 @@ Syscall_Close(UINT64 Fd)
   return -1;
 }
 
+VOID
+CloseAll(VOID)
+{
+  for(UINTN i = 3; i < MAX_FILE; i++){
+    if(OpenedFiles[i].File != NOFILE){
+      Syscall_Close(i);
+    }
+  }
+}
+
 UINT64
 Syscall_Stat(UINT64 Path, UINT64 Buf)
 {

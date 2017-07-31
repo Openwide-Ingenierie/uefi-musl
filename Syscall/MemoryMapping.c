@@ -295,3 +295,24 @@ AllocateMaxSize(EFI_PHYSICAL_ADDRESS* Begin, EFI_PHYSICAL_ADDRESS* End)
   FreePool(Map);
   return EFI_SUCCESS;
 }
+
+VOID
+HeapFree(VOID)
+{
+  gBS->FreePages(Heap, (End-Heap)/PAGESIZE);
+  Heap = -1;
+  End = -1;
+  Break = -1;
+}
+
+
+VOID
+LibExit(VOID)
+{
+  // Close all file descriptors
+  CloseAll();
+  // Free MMAP list
+  ListFree();
+  // Free Heap memory
+  HeapFree();
+}

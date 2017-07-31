@@ -91,6 +91,7 @@ UINT64 Syscall_Pread64(UINT64, UINT64, UINT64, UINT64);
 
 UINT64 Syscall_Pwrite64(UINT64, UINT64, UINT64, UINT64);
 
+VOID CloseAll(VOID);
 
 /* Utils functions */
 UINT64 Stat(EFI_FILE_PROTOCOL*, struct stat*);
