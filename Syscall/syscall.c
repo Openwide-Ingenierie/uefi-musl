@@ -195,32 +195,14 @@ UefiSyscall(UINT64 Rax, UINT64 Arg1, UINT64 Arg2, UINT64 Arg3, UINT64 Arg4,
   case SYS_getrusage:
   case SYS_sysinfo:
   case SYS_times:
-    
-    break;
   case SYS_ptrace:
-    
-    break;
   case SYS_getuid:
-    
-    break;
   case SYS_syslog:
-    
-    break;
   case SYS_getgid:
-    
-    break;
   case SYS_setuid:
-    
-    break;
   case SYS_setgid:
-    
-    break;
   case SYS_geteuid:
-    
-    break;
   case SYS_getegid:
-    
-    break;
   case SYS_setpgid:
     
     break;
@@ -228,272 +210,94 @@ UefiSyscall(UINT64 Rax, UINT64 Arg1, UINT64 Arg2, UINT64 Arg3, UINT64 Arg4,
     // We have no ppid, so let's return 1
     return 1;
   case SYS_getpgrp:
-    
-    break;
   case SYS_setsid:
-    
-    break;
   case SYS_setreuid:
-    
-    break;
   case SYS_setregid:
-    
-    break;
   case SYS_getgroups:
-    
-    break;
   case SYS_setgroups:
-    
-    break;
   case SYS_setresuid:
-    
-    break;
   case SYS_getresuid:
-    
-    break;
   case SYS_setresgid:
-    
-    break;
   case SYS_getresgid:
-    
-    break;
   case SYS_getpgid:
-    
-    break;
   case SYS_setfsuid:
-    
-    break;
   case SYS_setfsgid:
-    
-    break;
   case SYS_getsid:
-    
-    break;
   case SYS_capget:
-    
-    break;
   case SYS_capset:
-    
-    break;
   case SYS_rt_sigpending:
-    
-    break;
   case SYS_rt_sigtimedwait:
-    
-    break;
   case SYS_rt_sigqueueinfo:
-    
-    break;
   case SYS_rt_sigsuspend:
-    
-    break;
   case SYS_sigaltstack:
-    
-    break;
   case SYS_utime:
-    
-    break;
   case SYS_mknod:
-    
-    break;
   case SYS_uselib:
-    
-    break;
   case SYS_personality:
-    
-    break;
   case SYS_ustat:
-    
-    break;
   case SYS_statfs:
-    
-    break;
   case SYS_fstatfs:
-    
-    break;
   case SYS_sysfs:
-    
-    break;
   case SYS_getpriority:
-    
-    break;
   case SYS_setpriority:
-    
-    break;
   case SYS_sched_setparam:
-    
-    break;
   case SYS_sched_getparam:
-    
-    break;
   case SYS_sched_setscheduler:
-    
-    break;
   case SYS_sched_getscheduler:
-    
-    break;
   case SYS_sched_get_priority_max:
-    
-    break;
   case SYS_sched_get_priority_min:
-    
-    break;
   case SYS_sched_rr_get_interval:
-    
-    break;
   case SYS_mlock:
-    
-    break;
   case SYS_munlock:
-    
-    break;
   case SYS_mlockall:
-    
-    break;
   case SYS_munlockall:
-    
-    break;
   case SYS_vhangup:
-    
-    break;
   case SYS_modify_ldt:
-    
-    break;
   case SYS_pivot_root:
-    
-    break;
   case SYS__sysctl:
-    
-    break;
   case SYS_prctl:
-    
-    break;
   case SYS_arch_prctl:
-    
-    break;
   case SYS_adjtimex:
-    
-    break;
   case SYS_setrlimit:
-    
-    break;
   case SYS_chroot:
-    
-    break;
   case SYS_sync:
-    
-    break;
   case SYS_acct:
-    
-    break;
   case SYS_settimeofday:
-    
-    break;
   case SYS_mount:
-    
-    break;
   case SYS_umount2:
-    
-    break;
   case SYS_swapon:
-    
-    break;
   case SYS_swapoff:
-    
-    break;
   case SYS_reboot:
-    
-    break;
   case SYS_sethostname:
-    
-    break;
   case SYS_setdomainname:
-    
-    break;
   case SYS_iopl:
-    
-    break;
   case SYS_ioperm:
-    
-    break;
   case SYS_create_module:
-    
-    break;
   case SYS_init_module:
-    
-    break;
   case SYS_delete_module:
-    
-    break;
   case SYS_get_kernel_syms:
-    
-    break;
   case SYS_query_module:
-    
-    break;
   case SYS_quotactl:
-    
-    break;
   case SYS_nfsservctl:
-    
-    break;
   case SYS_getpmsg:
-    
-    break;
   case SYS_putpmsg:
-    
-    break;
   case SYS_afs_syscall:
-    
-    break;
   case SYS_tuxcall:
-    
-    break;
   case SYS_security:
-    
-    break;
   case SYS_gettid:
-    
-    break;
   case SYS_readahead:
-    
-    break;
   case SYS_setxattr:
-    
-    break;
   case SYS_lsetxattr:
-    
-    break;
   case SYS_fsetxattr:
-    
-    break;
   case SYS_getxattr:
-    
-    break;
   case SYS_lgetxattr:
-    
-    break;
   case SYS_fgetxattr:
-    
-    break;
   case SYS_listxattr:
-    
-    break;
   case SYS_llistxattr:
-    
-    break;
   case SYS_flistxattr:
-    
-    break;
   case SYS_removexattr:
-    
-    break;
   case SYS_lremovexattr:
-    
-    break;
   case SYS_fremovexattr:
-    
-    break;
   case SYS_tkill:
     break;
     
@@ -510,374 +314,135 @@ UefiSyscall(UINT64 Rax, UINT64 Arg1, UINT64 Arg2, UINT64 Arg3, UINT64 Arg4,
     break;
     
   case SYS_set_thread_area:
-    
-    break;
   case SYS_io_setup:
-    
-    break;
   case SYS_io_destroy:
-    
-    break;
   case SYS_io_getevents:
-    
-    break;
   case SYS_io_submit:
-    
-    break;
   case SYS_io_cancel:
-    
-    break;
   case SYS_get_thread_area:
-    
-    break;
   case SYS_lookup_dcookie:
-    
-    break;
   case SYS_epoll_create:
-    
-    break;
   case SYS_epoll_ctl_old:
-    
-    break;
   case SYS_epoll_wait_old:
-    
-    break;
   case SYS_remap_file_pages:
-    
-    break;
   case SYS_set_tid_address:
-    
-    break;
   case SYS_restart_syscall:
-    
-    break;
   case SYS_semtimedop:
-    
-    break;
   case SYS_fadvise64:
-    
-    break;
   case SYS_timer_create:
-    
-    break;
   case SYS_timer_settime:
-    
-    break;
   case SYS_timer_gettime:
-    
-    break;
   case SYS_timer_getoverrun:
-    
-    break;
   case SYS_timer_delete:
-    
-    break;
   case SYS_clock_settime:
-    
-    break;
   case SYS_clock_gettime:
-    
-    break;
   case SYS_clock_getres:
-    
-    break;
   case SYS_clock_nanosleep:
-    
-    break;
   case SYS_exit_group:
-    
-    break;
   case SYS_epoll_wait:
-    
-    break;
   case SYS_epoll_ctl:
-    
-    break;
   case SYS_tgkill:
-    
-    break;
   case SYS_utimes:
-    
-    break;
   case SYS_vserver:
-    
-    break;
   case SYS_mbind:
-    
-    break;
   case SYS_set_mempolicy:
-    
-    break;
   case SYS_get_mempolicy:
-    
-    break;
   case SYS_mq_open:
-    
-    break;
   case SYS_mq_unlink:
-    
-    break;
   case SYS_mq_timedsend:
-    
-    break;
   case SYS_mq_timedreceive:
-    
-    break;
   case SYS_mq_notify:
-    
-    break;
   case SYS_mq_getsetattr:
-    
-    break;
   case SYS_kexec_load:
-    
-    break;
   case SYS_waitid:
-    
-    break;
   case SYS_add_key:
-    
-    break;
   case SYS_request_key:
-    
-    break;
   case SYS_keyctl:
-    
-    break;
   case SYS_ioprio_set:
-    
-    break;
   case SYS_ioprio_get:
-    
-    break;
   case SYS_inotify_init:
-    
-    break;
   case SYS_inotify_add_watch:
-    
-    break;
   case SYS_inotify_rm_watch:
-    
-    break;
   case SYS_migrate_pages:
-    
-    break;
   case SYS_openat:
-    
-    break;
   case SYS_mkdirat:
-    
-    break;
   case SYS_mknodat:
-    
-    break;
   case SYS_fchownat:
-    
-    break;
   case SYS_futimesat:
-    
-    break;
   case SYS_newfstatat:
-    
-    break;
   case SYS_unlinkat:
-    
-    break;
   case SYS_renameat:
-    
-    break;
   case SYS_linkat:
-    
     break;
+    
   case SYS_symlinkat:
     errno = EPERM;
     return -1;
   case SYS_readlinkat:
-    
-    break;
   case SYS_fchmodat:
-    
-    break;
   case SYS_faccessat:
-    
-    break;
   case SYS_pselect6:
-    
-    break;
   case SYS_ppoll:
-    
-    break;
   case SYS_unshare:
-    
-    break;
   case SYS_set_robust_list:
-    
-    break;
   case SYS_get_robust_list:
-    
-    break;
   case SYS_splice:
-    
-    break;
   case SYS_tee:
-    
-    break;
   case SYS_sync_file_range:
-    
-    break;
   case SYS_vmsplice:
-    
-    break;
   case SYS_move_pages:
-    
-    break;
   case SYS_utimensat:
-    
-    break;
   case SYS_epoll_pwait:
-    
-    break;
   case SYS_signalfd:
-    
-    break;
   case SYS_timerfd_create:
-    
-    break;
   case SYS_eventfd:
-    
-    break;
   case SYS_fallocate:
-    
-    break;
   case SYS_timerfd_settime:
-    
-    break;
   case SYS_timerfd_gettime:
-    
-    break;
   case SYS_accept4:
-    
-    break;
   case SYS_signalfd4:
-    
-    break;
   case SYS_eventfd2:
-    
-    break;
   case SYS_epoll_create1:
-    
-    break;
   case SYS_dup3:
-    
-    break;
   case SYS_pipe2:
-    
-    break;
   case SYS_inotify_init1:
-    
-    break;
   case SYS_preadv:
-    
-    break;
   case SYS_pwritev:
-    
-    break;
   case SYS_rt_tgsigqueueinfo:
-    
-    break;
   case SYS_perf_event_open:
-    
-    break;
   case SYS_recvmmsg:
-    
-    break;
   case SYS_fanotify_init:
-    
-    break;
   case SYS_fanotify_mark:
-    
-    break;
   case SYS_prlimit64:
-    
-    break;
   case SYS_name_to_handle_at:
-    
-    break;
   case SYS_open_by_handle_at:
-    
-    break;
   case SYS_clock_adjtime:
-    
-    break;
   case SYS_syncfs:
-    
-    break;
   case SYS_sendmmsg:
-    
-    break;
   case SYS_setns:
-    
-    break;
   case SYS_getcpu:
-    
-    break;
   case SYS_process_vm_readv:
-    
-    break;
   case SYS_process_vm_writev:
-    
-    break;
   case SYS_kcmp:
-    
-    break;
   case SYS_finit_module:
-    
-    break;
   case SYS_sched_setattr:
-    
-    break;
   case SYS_sched_getattr:
-    
-    break;
   case SYS_renameat2:
-    
-    break;
   case SYS_seccomp:
-    
-    break;
   case SYS_getrandom:
-    
-    break;
   case SYS_memfd_create:
-    
-    break;
   case SYS_kexec_file_load:
-    
-    break;
   case SYS_bpf:
-    
-    break;
   case SYS_execveat:
-    
-    break;
   case SYS_userfaultfd:
-    break;
   case SYS_membarrier:
-    break;
   case SYS_mlock2:
-    break;
   case SYS_copy_file_range:
-    break;
   case SYS_preadv2:
-    break;
   case SYS_pwritev2:
-    break;
   case SYS_pkey_mprotect:
-    break;
   case SYS_pkey_alloc:
-    break;
   case SYS_pkey_free: 
-    break;
   default:
     Print(L"Unsupported operation %d\n", Rax);
     break;
