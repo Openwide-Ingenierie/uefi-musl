@@ -22,11 +22,14 @@ Low level functions in the `musl libc` uses the assembly `syscall` instruction t
 To do so, we can find MACROS `__syscallN(...)` (where 0 ≤ N ≤ 7) defined in the file `src/internal/syscall.h`. Those MACROS will be replaced by a assembly routine call called `__syscall` defined in `src/internal/x86_64/syscall.s`.
 
 Thereby, to port this library, we only need to replace the call of assembly `syscall` instruction (contained in `__syscall` subroutine) by another function call that will reproduce the behaviour of this instruction depending on the registers value. That's why our port provides the C function `UefiSyscall(...)` in `Syscall/syscall.c`. The arguments of this function are respectively the values of registers: `rax`, `rdi`, `rsi`, `rdx`, `r10`, `r8`, `r9`. The first argument, `rax`, determines the operation to reproduce. The whole Linux x64 syscall table can be found here: http://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
+
 The source folder `Syscall` contains code that will reproduce the syscalls. For example, the file `Syscall/File.c` implements syscalls related to file management, such as `open`, `close`, `read`, `write`, etc... (Check header file to see the exhaustive list)
 
 ## How to continue implementing syscalls
 
-To add syscall implementation, you only need to create a new .c and .h file in the `Syscall` folder, write your code. Add a call to your function inside the `UefiSyscall()` matching its id (`rax` value). Then add your file to the build configuration file, `MuslLibC.inf`, and that's it !
+To add syscall implementation, you only need to create a new .c and .h file in the `Syscall` folder, write your code.
+Add a call to your function inside the `UefiSyscall()` matching its id (`rax` value).
+Then add your file to the build configuration file, `MuslLibC.inf`, and that's it !
 
 ## Why this method of porting ?
 
@@ -64,7 +67,7 @@ Memory and file management has been done on this project which means that you ca
 - pread64
 - pwrite64
 
-Funcitons in `stdlib` are also functionnal as they don't depend on an syscall.
+Functions in `stdlib` are also functionnal as they don't depend on an syscall.
 Functions in `stdio` that works (not exhaustive):
 - sprintf
 - printf
@@ -80,7 +83,10 @@ Functions in `stdio` that works (not exhaustive):
 
 ## Known issues
 
-Setting or reading `errno` can provoke a `Segmentation Fault` on real hardware (in UEFI, it will freeze the computer). However, in Qemu with OVMF, this problem doesn't exist. A workaround consists in overriding the definition of `errno` for our syscalls implementations. In that case, `errno` is a simple MACRO dereferencing an empty space in the memory (see `Syscall/File.h`).
+Setting or reading `errno` can provoke a `Segmentation Fault` on real hardware (in UEFI, it will freeze the computer).
+
+However, in Qemu with OVMF, this problem doesn't exist. A workaround consists in overriding the definition of `errno` for our syscalls implementations.
+In that case, `errno` is a simple MACRO dereferencing an empty space in the memory (see `Syscall/File.h`).
 By default, the workaround is used for compiling. Adding the building MACRO `-D QEMU` in `MuslLibC.inf` lets us switch back to the original libc errno implementation.
 
 ## IMPORTANT NOTE:
